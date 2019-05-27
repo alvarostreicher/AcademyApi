@@ -1,4 +1,3 @@
-import db from '../db/db';
 import Posts from '../models/PostsModel';
 
 class PostsController {
