@@ -5,6 +5,10 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    shortDescription: {
+        type: String,
+        required: false
+    },
     description: {
         type: String,
         required: true
@@ -20,7 +24,8 @@ const PostSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now()
-    }
+    },
+    comments: []
 
 });
 
