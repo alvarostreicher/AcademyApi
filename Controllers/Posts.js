@@ -4,8 +4,8 @@ import { ObjectId } from 'mongodb';
 class PostsController {
  async postTodo ( req, res )  {
     const posts = new Posts(req.body);
-    if(posts.description.length > 400){
-      posts.shortDescription = posts.description.substr(0,posts.description.length/4)
+    if(posts.description.length > 350){
+      posts.shortDescription = posts.description.substr(0,200)
     }else {
       posts.shortDescription = posts.description;
     }
@@ -22,7 +22,7 @@ class PostsController {
 
   async postEdit ( req, res ) {
     const posts = new Posts(req.body);
-    await posts.findByIdAndUpdate(req.params.id, {$set: posts},{new: true}, (err, post)=>{
+    await Posts.findByIdAndUpdate(req.params.id, {$set: posts},{new: true}, (err, post)=>{
       if(err){
         return res.status(500).send({ error: err.errors })
       }
