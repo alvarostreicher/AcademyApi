@@ -25,7 +25,12 @@ const PostSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    comments: []
+    comments: [],
+    show: {
+        type: Boolean,
+        required: true,
+        default: true
+    }
 
 });
 

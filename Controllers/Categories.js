@@ -2,7 +2,7 @@ import Categories from '../models/CategoryModel';
 
 class CategoriesController {
     async getCategories (req, res) {
-        const categories = await Categories.find();
+        const [{categories}] = await Categories.find();
         res.status(200).send(categories)
     }
 
