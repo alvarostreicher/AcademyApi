@@ -21,8 +21,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(router);
 
 
-const PORT =3000;
 
-app.listen(PORT, () => {
-    console.log('server running')
-});
+
+export default app;

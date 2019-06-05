@@ -9,7 +9,7 @@ router.post('/api/v1/posts', postController.addPost);
 
 router.get('/api/v1/posts', postController.getAllPosts);
 
-router.post('/api/v1/posts/post/:id', postController.postEdit);
+router.post('/api/v1/posts/post', postController.postEdit);
 
 router.post('/api/v1/posts/delete', postController.postDelete);
 

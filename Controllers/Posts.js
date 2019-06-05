@@ -32,7 +32,7 @@ class PostsController {
   async postEdit ( req, res ) {
     const posts = req.body;
     console.log(posts);
-    await Posts.findByIdAndUpdate(req.params.id, {$set: posts},{new: true}, (err, post)=>{
+    await Posts.findByIdAndUpdate(posts.id, {$set: posts},{new: true}, (err, post)=>{
       if(err){
         return res.status(500).send({ error: err.errors })
       }
@@ -66,7 +66,7 @@ class PostsController {
   }
 
   async getAllPosts ( req, res ) {
-    const posts = await Posts.find({show: true});
+    const posts = await Posts.find({show: true}).sort({ date: -1 });
     res.status(200).send(posts)
   }
 
