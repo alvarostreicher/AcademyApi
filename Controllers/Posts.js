@@ -31,6 +31,11 @@ class PostsController {
 
   async postEdit ( req, res ) {
     const posts = req.body;
+    if(posts.description.length > 350){
+      posts.shortDescription = posts.description.substr(0,200)
+    }else {
+      posts.shortDescription = posts.description;
+    }
     console.log(posts);
     await Posts.findByIdAndUpdate(posts.id, {$set: posts},{new: true}, (err, post)=>{
       if(err){
