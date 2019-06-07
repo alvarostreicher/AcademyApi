@@ -2,14 +2,14 @@ import Posts from '../models/PostsModel';
 import { ObjectId } from 'mongodb';
 
 class PostsController {
- async addPost ( req, res )  {
+ addPost ( req, res )  {
     const posts = new Posts(req.body);
     if(posts.description.length > 350){
       posts.shortDescription = posts.description.substr(0,200)
     }else {
       posts.shortDescription = posts.description;
     }
-    await posts.save(
+     posts.save(
       (err, post) => {
         if(err){
           console.log('entro al error')
@@ -19,9 +19,9 @@ class PostsController {
       });
   }
 
-  async postDelete ( req, res ) {
+  postDelete ( req, res ) {
     const { _id } = req.body;
-    await Posts.findByIdAndUpdate(_id, { $set: { show: false } }, {new: true}, (err, post)=> {
+     Posts.findByIdAndUpdate(_id, { $set: { show: false } }, {new: true}, (err, post)=> {
       if(err){
         return res.status(500).send({ error: err.erros })
       }
@@ -29,7 +29,7 @@ class PostsController {
     })
   }
 
-  async postEdit ( req, res ) {
+   postEdit ( req, res ) {
     const posts = req.body;
     if(posts.description.length > 350){
       posts.shortDescription = posts.description.substr(0,200)
@@ -37,7 +37,7 @@ class PostsController {
       posts.shortDescription = posts.description;
     }
     console.log(posts);
-    await Posts.findByIdAndUpdate(posts.id, {$set: posts},{new: true}, (err, post)=>{
+     Posts.findByIdAndUpdate(posts.id, {$set: posts},{new: true}, (err, post)=>{
       if(err){
         return res.status(500).send({ error: err.errors })
       }
@@ -46,9 +46,9 @@ class PostsController {
     
   }
 
-  async postFilter ( req, res ) {
+  postFilter ( req, res ) {
     const { filter } = req.query;
-    await Posts.find({ category: filter }, (err, post)=>{
+     Posts.find({ category: filter }, (err, post)=>{
       if(err){
         return resizeTo.status(404).send({ error: err.errors })
       }
@@ -57,11 +57,11 @@ class PostsController {
     
   }
 
-  async AddComment ( req, res ) {
+  AddComment ( req, res ) {
     let posts = req.body;
     posts._id = ObjectId();
     console.log(posts)
-    await Posts.findByIdAndUpdate(req.params.id,{ $addToSet: { comments: posts } }, {new: true},
+    Posts.findByIdAndUpdate(req.params.id,{ $addToSet: { comments: posts } }, {new: true},
       (err, post) => {
         if(err){
           return res.status(500).send({ error: err.errors })
@@ -75,9 +75,9 @@ class PostsController {
     res.status(200).send(posts)
   }
 
-  async getOnePost (req, res) {
+   getOnePost (req, res) {
     const { id } = req.params;
-    const posts = await Posts.findById({ _id: id }, (err, post) => {
+    const posts = Posts.findById({ _id: id }, (err, post) => {
       if(!err){
         res.status(200).send(post);
       }else {
